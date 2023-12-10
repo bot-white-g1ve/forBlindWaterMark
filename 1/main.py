@@ -23,7 +23,7 @@ def decodestr(img,len):#解密文字信息
     print("time cost:", costtime)
     print("the string extracted: ", wm_extract)
 def encodeimg(carrier,watermark):#嵌入图像水印
-    startime = time.time()
+    starttime = time.time()
     bwm1 = WaterMark(password_wm=1, password_img=1)
     # 读取原图
     bwm1.read_img('input/'+carrier)
@@ -39,7 +39,7 @@ def encodeimg(carrier,watermark):#嵌入图像水印
 def decodeimg(img, size):#提取图像水印
     bwm1 = WaterMark(password_wm=1, password_img=1)
     # 注意需要设定水印的长宽wm_shape
-    bwm1.extract(filename=img, wm_shape=size,out_wm_name='img_wm/output/extracted.png')
+    bwm1.extract(filename=img, wm_shape=tuple(size),out_wm_name='img_wm/output/extracted.png')
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
@@ -49,5 +49,9 @@ if __name__ == '__main__':
         encodestr(sys.argv[2], sys.argv[3])
     if sys.argv[1] == 'decodestr':
         decodestr(sys.argv[2], sys.argv[3])
+    if sys.argv[1] == 'encodeimg':
+        encodeimg(sys.argv[2], sys.argv[3])
+    if sys.argv[1] == 'decodeimg':
+        decodeimg(sys.argv[2], sys.argv[3])
     else:
         print("wrong arguments")
