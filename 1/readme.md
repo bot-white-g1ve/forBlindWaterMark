@@ -1,5 +1,7 @@
 # 使用
-输入的图片放在input中
+encodestr输入的图片放在input中
+
+decodestr输入的图片也放在input中
 
 输入的水印图片放在img_wm/input中
 

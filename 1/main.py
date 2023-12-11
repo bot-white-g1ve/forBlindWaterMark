@@ -17,7 +17,7 @@ def encodestr(img,str):#嵌入文字信息
 def decodestr(img,len):#解密文字信息
     startime=time.time()
     bwm1 = WaterMark(password_img=1, password_wm=1)
-    wm_extract = bwm1.extract('output/'+img, wm_shape=int(len), mode='str')
+    wm_extract = bwm1.extract('input/'+img, wm_shape=int(len), mode='str')
     endtime = time.time()
     costtime = endtime - startime
     print("time cost:", costtime)
@@ -34,24 +34,28 @@ def encodeimg(carrier,watermark):#嵌入图像水印
     endtime = time.time()
     costtime = endtime - starttime
     print("time cost: ", costtime)
-    with Image.open(watermark) as img:
+    with Image.open('img_wm/input/'+watermark) as img:
         print("watermark's size: ", img.size)
 def decodeimg(img, size):#提取图像水印
+    size1, size2 = size.split(',')
+    size1 = int(size1.replace('(', ''))
+    size2 = int(size2.replace(')', ''))
+    size = (size1, size2)
     bwm1 = WaterMark(password_wm=1, password_img=1)
     # 注意需要设定水印的长宽wm_shape
-    bwm1.extract(filename=img, wm_shape=tuple(size),out_wm_name='img_wm/output/extracted.png')
+    bwm1.extract(filename='input/'+img, wm_shape=size, out_wm_name='img_wm/output/extracted.png')
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         print("no arguments")
         sys.exit(0)
-    if sys.argv[1] == 'encodestr':
+    elif sys.argv[1] == 'encodestr':
         encodestr(sys.argv[2], sys.argv[3])
-    if sys.argv[1] == 'decodestr':
+    elif sys.argv[1] == 'decodestr':
         decodestr(sys.argv[2], sys.argv[3])
-    if sys.argv[1] == 'encodeimg':
+    elif sys.argv[1] == 'encodeimg':
         encodeimg(sys.argv[2], sys.argv[3])
-    if sys.argv[1] == 'decodeimg':
+    elif sys.argv[1] == 'decodeimg':
         decodeimg(sys.argv[2], sys.argv[3])
     else:
         print("wrong arguments")

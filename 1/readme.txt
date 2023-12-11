@@ -7,3 +7,4 @@ https://blindwatermark.github.io/blind_watermark/#/zh/
 
 
 bg_edit1, edit2 失败
+bg_img_embedded 失败
